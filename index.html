@@ -29,15 +29,45 @@
         overflow-x: hidden;
       }
       
+      .fluid-smoke-demo {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: -1;
+        opacity: 0.7;
+        pointer-events: none;
+        mix-blend-mode: screen;
+      }
+      .fluid-smoke-demo #art {
+        width: 100%; height: 100%;
+      }
+      .fluid-smoke-demo .r {
+        white-space: pre; overflow: hidden;
+        font-family: Georgia, Palatino, "Times New Roman", serif;
+        font-size: 16px; line-height: 18px;
+      }
+      .fluid-smoke-demo .w3 { font-weight: 300; }
+      .fluid-smoke-demo .w5 { font-weight: 500; }
+      .fluid-smoke-demo .w8 { font-weight: 800; }
+      .fluid-smoke-demo .it { font-style: italic; }
+      .fluid-smoke-demo .a1 { color: rgba(255,59,59,0.15); }
+      .fluid-smoke-demo .a2 { color: rgba(255,59,59,0.30); }
+      .fluid-smoke-demo .a3 { color: rgba(255,59,59,0.45); }
+      .fluid-smoke-demo .a4 { color: rgba(255,59,59,0.60); }
+      .fluid-smoke-demo .a5 { color: rgba(255,59,59,0.70); }
+      .fluid-smoke-demo .a6 { color: rgba(255,59,59,0.80); }
+      .fluid-smoke-demo .a7 { color: rgba(255,59,59,0.88); }
+      .fluid-smoke-demo .a8 { color: rgba(255,59,59,0.94); }
+      .fluid-smoke-demo .a9 { color: rgba(255,59,59,1.0); }
+      .fluid-smoke-demo .a10 { color: rgba(255,100,100,1.0); }
+      .fluid-smoke-demo #stats {
+        display: none;
+      }
+      
       .hero-bg {
         position: fixed;
         top: 0; left: 0; right: 0; bottom: 0;
-        z-index: -2;
-        background: 
-          radial-gradient(ellipse 80% 50% at 50% -20%, var(--accent-red-glow) 0%, transparent 50%),
-          radial-gradient(ellipse 60% 40% at 80% 60%, var(--accent-kaki-glow) 0%, transparent 40%),
-          radial-gradient(circle at 20% 80%, rgba(255,59,59,0.08) 0%, transparent 30%),
-          linear-gradient(180deg, #000000 0%, #0a0806 100%);
+        z-index: -3;
+        background: #000000;
       }
       
       .hero-pattern {
@@ -246,6 +276,20 @@
         font-size: 14px;
         color: var(--text-muted);
         font-weight: 400;
+      }
+      .card .pro-features {
+        margin: 16px 0;
+        padding: 0;
+        list-style: none;
+      }
+      .card .pro-features li {
+        font-size: 13px;
+        color: var(--text-muted);
+        padding: 6px 0;
+        border-bottom: 1px solid rgba(196,163,90,0.1);
+      }
+      .card .pro-features li:last-child {
+        border-bottom: none;
       }
       
       .features { 
@@ -488,6 +532,9 @@
   <body>
     <div class='hero-bg'></div>
     <div class='hero-pattern'></div>
+    <div class='fluid-smoke-demo'>
+      <div id='art'></div>
+    </div>
     
     <header>
       <div class='container header-inner'>
@@ -528,6 +575,12 @@
           <div class='card'>
             <h3>👑 Claw Commander</h3>
             <p>Full enterprise suite: multi-agent orchestration, deployment scripts, priority support.</p>
+            <ul class='pro-features'>
+              <li>✨ All Molty Pack features</li>
+              <li>🎨 Pretext Demo Pack (5 interactive layouts)</li>
+              <li>🚀 Priority deployment scripts</li>
+              <li>💬 Priority support</li>
+            </ul>
             <div class='price'>$29 <span>/ one-time</span></div>
           </div>
         </div>
@@ -682,5 +735,181 @@
     chatInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') sendMessage();
     });
+  </script>
+  <script type='module'>
+    // Fluid Smoke ASCII Art - Pretext
+    const FONT_SIZE = 14;
+    const LINE_HEIGHT = 17;
+    const PROP_FAMILY = 'Georgia, Palatino, "Times New Roman", serif';
+    const CHARSET = " .,:;!+-=*#@%&abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const WEIGHTS = [300, 500, 800];
+    const FONT_STYLES = ["normal", "italic"];
+    
+    const bCvs = document.createElement("canvas");
+    bCvs.width = bCvs.height = 28;
+    const bCtx = bCvs.getContext("2d", { willReadFrequently: true });
+    
+    function estimateBrightness(ch, font) {
+      bCtx.clearRect(0, 0, 28, 28);
+      bCtx.font = font;
+      bCtx.fillStyle = "#fff";
+      bCtx.textBaseline = "middle";
+      bCtx.fillText(ch, 1, 14);
+      const d = bCtx.getImageData(0, 0, 28, 28).data;
+      let sum = 0;
+      for (let i = 3; i < d.length; i += 4) sum += d[i];
+      return sum / (255 * 784);
+    }
+    
+    const palette = [];
+    for (const style of FONT_STYLES) {
+      for (const weight of WEIGHTS) {
+        const font = `${style === "italic" ? "italic " : ""}${weight} ${FONT_SIZE}px ${PROP_FAMILY}`;
+        for (const ch of CHARSET) {
+          if (ch === " ") continue;
+          const canvas = document.createElement("canvas");
+          canvas.width = canvas.height = 28;
+          const ctx = canvas.getContext("2d");
+          ctx.font = font;
+          const width = ctx.measureText(ch).width;
+          if (width <= 0) continue;
+          palette.push({ char: ch, weight, style, font, width, brightness: estimateBrightness(ch, font) });
+        }
+      }
+    }
+    
+    let maxB = Math.max(...palette.map(p => p.brightness));
+    if (maxB > 0) for (const p of palette) p.brightness /= maxB;
+    palette.sort((a, b) => a.brightness - b.brightness);
+    
+    const avgCharW = palette.reduce((s, p) => s + p.width, 0) / palette.length;
+    const aspect = avgCharW / LINE_HEIGHT;
+    const aspect2 = aspect * aspect;
+    const spaceW = FONT_SIZE * 0.27;
+    
+    function findBest(targetB, targetW) {
+      let lo = 0, hi = palette.length - 1;
+      while (lo < hi) {
+        const mid = lo + hi >> 1;
+        if (palette[mid].brightness < targetB) lo = mid + 1;
+        else hi = mid;
+      }
+      let bestScore = Infinity, best = palette[lo];
+      for (let i = Math.max(0, lo - 15); i < Math.min(palette.length, lo + 15); i++) {
+        const p = palette[i];
+        const score = Math.abs(p.brightness - targetB) * 2.5 + Math.abs(p.width - targetW) / targetW;
+        if (score < bestScore) { bestScore = score; best = p; }
+      }
+      return best;
+    }
+    
+    function esc(c) {
+      if (c === "&") return "&amp;";
+      if (c === "<") return "&lt;";
+      if (c === ">") return "&gt;";
+      return c;
+    }
+    
+    function wCls(w, s) {
+      const wc = w === 300 ? "w3" : w === 500 ? "w5" : "w8";
+      return s === "italic" ? wc + " it" : wc;
+    }
+    
+    const MAX_COLS = 200, MAX_ROWS = 80;
+    const artEl = document.querySelector('.fluid-smoke-demo #art');
+    const COLS = Math.min(MAX_COLS, Math.floor(window.innerWidth / avgCharW));
+    const ROWS = Math.min(MAX_ROWS, Math.floor(window.innerHeight / LINE_HEIGHT));
+    
+    let density = new Float32Array(COLS * ROWS);
+    let tempDen = new Float32Array(COLS * ROWS);
+    let rowEls = [];
+    
+    for (let r = 0; r < ROWS; r++) {
+      const div = document.createElement("div");
+      div.className = "r";
+      div.style.height = div.style.lineHeight = LINE_HEIGHT + "px";
+      artEl.appendChild(div);
+      rowEls.push(div);
+    }
+    
+    const emitters = [
+      { cx: 0.25, cy: 0.4, orbitR: 0.14, freq: 0.3, phase: 0, strength: 0.18 },
+      { cx: 0.7, cy: 0.35, orbitR: 0.1, freq: 0.25, phase: 2.1, strength: 0.15 },
+      { cx: 0.45, cy: 0.65, orbitR: 0.16, freq: 0.35, phase: 4.2, strength: 0.2 },
+      { cx: 0.8, cy: 0.6, orbitR: 0.08, freq: 0.4, phase: 1, strength: 0.14 }
+    ];
+    
+    function getVel(c, r, t) {
+      const nx = c / COLS, ny = r / ROWS;
+      let vx = Math.sin(ny * 6.28 + t * 0.3) * 2 + Math.cos((nx + ny) * 12.5 + t * 0.55) * 0.7 + Math.sin(nx * 25 + ny * 18 + t * 0.8) * 0.25;
+      let vy = Math.cos(nx * 5 + t * 0.4) * 1.5 + Math.sin((nx - ny) * 10 + t * 0.4) * 0.8 + Math.cos(nx * 18 - ny * 25 + t * 0.7) * 0.25;
+      vy *= aspect;
+      return [vx, vy];
+    }
+    
+    function updateSim(t) {
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          const [vx, vy] = getVel(c, r, t);
+          let sx = Math.max(0, Math.min(COLS - 1.001, c - vx));
+          let sy = Math.max(0, Math.min(ROWS - 1.001, r - vy));
+          const x0 = sx | 0, y0 = sy | 0;
+          const x1 = Math.min(x0 + 1, COLS - 1), y1 = Math.min(y0 + 1, ROWS - 1);
+          const fx = sx - x0, fy = sy - y0;
+          tempDen[r * COLS + c] = density[y0 * COLS + x0] * (1 - fx) * (1 - fy) + density[y0 * COLS + x1] * fx * (1 - fy) + density[y1 * COLS + x0] * (1 - fx) * fy + density[y1 * COLS + x1] * fx * fy;
+        }
+      }
+      [density, tempDen] = [tempDen, density];
+      
+      for (let r = 1; r < ROWS - 1; r++) {
+        for (let c = 1; c < COLS - 1; c++) {
+          const i = r * COLS + c;
+          const avg = (density[i - 1] + density[i + 1] + (density[i - COLS] + density[i + COLS]) * aspect2) / (2 + 2 * aspect2);
+          tempDen[i] = density[i] * 0.92 + avg * 0.08;
+        }
+      }
+      [density, tempDen] = [tempDen, density];
+      
+      const spread = 4;
+      for (const e of emitters) {
+        const ex = (e.cx + Math.cos(t * e.freq + e.phase) * e.orbitR) * COLS;
+        const ey = (e.cy + Math.sin(t * e.freq * 0.7 + e.phase) * e.orbitR * 0.8) * ROWS;
+        for (let dr = -spread; dr <= spread; dr++) {
+          for (let dc = -spread; dc <= spread; dc++) {
+            const rr = ey | 0 + dr, cc = ex | 0 + dc;
+            if (rr >= 0 && rr < ROWS && cc >= 0 && cc < COLS) {
+              const drScaled = dr / aspect;
+              const dist = Math.sqrt(drScaled * drScaled + dc * dc);
+              const s = Math.max(0, 1 - dist / (spread + 1));
+              density[rr * COLS + cc] = Math.min(1, density[rr * COLS + cc] + s * e.strength);
+            }
+          }
+        }
+      }
+      for (let i = 0; i < COLS * ROWS; i++) density[i] *= 0.984;
+    }
+    
+    function render(now) {
+      const t = now / 1000;
+      updateSim(t);
+      const tcw = window.innerWidth / COLS;
+      
+      for (let r = 0; r < ROWS; r++) {
+        let html = "", tw = 0;
+        for (let c = 0; c < COLS; c++) {
+          const b = density[r * COLS + c];
+          if (b < 0.025) { html += " "; tw += spaceW; }
+          else {
+            const m = findBest(b, tcw);
+            const ai = Math.max(1, Math.min(10, Math.round(b * 10)));
+            html += `<span class="${wCls(m.weight, m.style)} a${ai}">${esc(m.char)}</span>`;
+            tw += m.width;
+          }
+        }
+        rowEls[r].innerHTML = html;
+      }
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
   </script>
 </html>
