@@ -3,8 +3,8 @@
   <head>
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <title>ClawdyClaw - Official OpenClaw Templates & Packages</title>
-    <meta name='description' content='Premium templates and packages for OpenClaw. Build your AI assistant with style.' />
+    <title>DipDesigns Vibe — ClawHub Skill</title>
+    <meta name='description' content='Vibe → Preview → Handoff in one ClawHub skill. Model-agnostic UI generation for OpenClaw agents.' />
     <link rel='icon' href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦞</text></svg>' />
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -16,6 +16,10 @@
         --accent-kaki-dim: #8a7340;
         --accent-red-glow: #ff3b3b80;
         --accent-kaki-glow: #c4a35a40;
+        --accent-teal: #3fe0d0;
+        --accent-teal-dim: #2a9d8f;
+        --accent-teal-glow: rgba(63, 224, 208, 0.4);
+        --accent-teal-faint: rgba(63, 224, 208, 0.12);
         --text-primary: #f5f0e6;
         --text-muted: #9a958a;
         --border-glow: rgba(196, 163, 90, 0.3);
@@ -139,7 +143,7 @@
         position: relative;
       }
       .hero h1 span {
-        background: linear-gradient(135deg, var(--accent-kaki) 0%, var(--accent-red) 50%, var(--accent-kaki) 100%);
+        background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-kaki) 40%, var(--accent-red) 85%, var(--accent-teal) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -260,10 +264,46 @@
         box-shadow: 
           inset 0 1px 0 var(--card-highlight),
           inset 0 -1px 0 rgba(0,0,0,0.3),
-          0 16px 48px rgba(0,0,0,0.5),
-          0 0 0 1px var(--accent-kaki),
-          0 0 30px var(--accent-kaki-glow);
+           0 16px 48px rgba(0,0,0,0.5),
+           0 0 0 1px var(--accent-kaki),
+           0 0 30px var(--accent-kaki-glow);
       }
+      .card.featured {
+        border-color: rgba(63, 224, 208, 0.3);
+        box-shadow: 
+          inset 0 1px 0 var(--card-highlight),
+          inset 0 -1px 0 rgba(0,0,0,0.3),
+           0 8px 32px rgba(0,0,0,0.4),
+           0 0 0 1px rgba(63, 224, 208, 0.3),
+           0 0 30px rgba(63, 224, 208, 0.1);
+      }
+      .card.featured:hover {
+        border-color: var(--accent-teal);
+        box-shadow: 
+          inset 0 1px 0 var(--card-highlight),
+          inset 0 -1px 0 rgba(0,0,0,0.3),
+           0 16px 48px rgba(0,0,0,0.5),
+           0 0 0 1px var(--accent-teal),
+           0 0 30px var(--accent-teal-glow);
+      }
+      .card-badge {
+        display: inline-block;
+        background: var(--accent-teal-faint);
+        border: 1px solid var(--accent-teal-glow);
+        color: var(--accent-teal);
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 999px;
+        margin-bottom: 12px;
+        position: relative;
+      }
+      .card-sub {
+        color: var(--text-muted);
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+      .teal { color: var(--accent-teal); }
       .card h3 { 
         font-size: 22px; 
         margin-bottom: 12px; 
@@ -550,48 +590,43 @@
       <div class='container header-inner'>
         <a href='/' class='logo'>🦞 <span>ClawdyClaw</span></a>
         <nav>
-          <a href='#templates'>Templates</a>
+          <a href='#product'>Skill</a>
           <a href='#features'>Features</a>
-          <a href='#about'>About</a>
+          <a href='#chat'>Demo</a>
         </nav>
       </div>
     </header>
     
     <section class='hero'>
       <div class='container'>
-        <h1><span>Official OpenClaw Templates</span></h1>
-        <p>Premium starter kits, skill packs, and deployment packages for your OpenClaw AI assistant. Built by the community, for the community.</p>
+        <h1><span>Vibe → Preview → Handoff</span></h1>
+        <p>One ClawHub skill. Drop a short vibe — get a live HTML preview and a complete backend handoff.md. Model-agnostic, stack-agnostic, instant.</p>
         <div class='hero-buttons'>
-          <a href='#templates' class='btn btn-primary'>Get Started</a>
-          <a href='#features' class='btn btn-secondary'>Learn More</a>
+          <a href='#product' class='btn btn-primary'>Get the Skill</a>
+          <a href='#features' class='btn btn-secondary'>How It Works</a>
         </div>
       </div>
     </section>
     
-    <section class='card-section' id='templates'>
+    <section class='card-section' id='product'>
       <div class='container'>
-        <h2 class='section-title'>Template Packages</h2>
-        <div class='cards-grid'>
-          <div class='card'>
-            <h3>🥚 Egg Starter</h3>
-            <p>Basic setup with SOUL.md, AGENTS.md, and essential configs. Perfect for new users.</p>
-            <div class='price'>Free <span>· Open Source</span></div>
-          </div>
-          <div class='card'>
-            <h3>🦞 Molty Pack</h3>
-            <p>Advanced personality templates with memory system, custom skills, and channel integrations.</p>
-            <div class='price'>$9 <span>/ one-time</span></div>
-          </div>
-          <div class='card'>
-            <h3>👑 Claw Commander</h3>
-            <p>Full enterprise suite: multi-agent orchestration, deployment scripts, priority support.</p>
+        <h2 class='section-title'>The <span class='teal'>DipDesigns</span> Skill</h2>
+        <p style='text-align:center;color:var(--text-muted);max-width:600px;margin:0 auto 48px;'>Published on ClawHub. Install once, use on Telegram, Discord, or WhatsApp through your OpenClaw agent.</p>
+        <div class='cards-grid' style='grid-template-columns:minmax(0,480px);justify-content:center;'>
+          <div class='card featured'>
+            <div class='card-badge'>ClawHub</div>
+            <h3>🦞 DipDesigns Vibe</h3>
+            <p class='card-sub'>From a short phrase to a live preview and backend spec — all in one skill.</p>
             <ul class='pro-features'>
-              <li>✨ All Molty Pack features</li>
-              <li>🎨 Pretext Demo Pack (5 interactive layouts)</li>
-              <li>🚀 Priority deployment scripts</li>
-              <li>💬 Priority support</li>
+              <li>✨ <strong class='teal'>Vibe Expander</strong> — "dashboard" becomes a 150-word detailed UI spec</li>
+              <li>🎨 <strong class='teal'>Live Preview</strong> — complete HTML/CSS page, rendered by any model</li>
+              <li>📋 <strong class='teal'>Handoff.md</strong> — backend spec with data models, routes, stack targets</li>
+              <li>🔀 <strong class='teal'>Model-Agnostic</strong> — works with GPT, Claude, Gemini, Llama — any LLM</li>
+              <li>📦 <strong class='teal'>Stack-Agnostic</strong> — output targets Node, Cloudflare, Supabase, FastAPI, Next.js, Django, Rails</li>
+              <li>🌐 <strong class='teal'>Cross-Platform</strong> — runs on Telegram, Discord, WhatsApp via your agent</li>
             </ul>
-            <div class='price'>$29 <span>/ one-time</span></div>
+            <div class='price'>$10 <span>/ one-time · ClawHub</span></div>
+            <a href='#' class='btn btn-primary' style='display:inline-block;margin-top:16px;text-decoration:none;'>Install from ClawHub</a>
           </div>
         </div>
       </div>
@@ -599,23 +634,31 @@
     
     <section class='features' id='features'>
       <div class='container'>
-        <h2 class='section-title'>What's Included</h2>
+        <h2 class='section-title'>Your <span class='teal'>Full Pipeline</span> in One Skill</h2>
         <div class='features-grid'>
           <div class='feature'>
-            <h3>🎯 SOUL.md Templates</h3>
-            <p>Pre-crafted identity files that define your agent's personality, values, and behavior patterns.</p>
+            <h3>🎯 Vibe Expander</h3>
+            <p>Type "dark dashboard" or "landing page" — the skill expands your short phrase into a detailed, structured prompt. 12 built-in categories with hand-crafted expansions.</p>
           </div>
           <div class='feature'>
-            <h3>🛠️ Skill Packs</h3>
-            <p>Ready-to-use skills for email, calendar, GitHub, and more. Just configure and deploy.</p>
+            <h3>🖥️ Live Preview</h3>
+            <p>Generates a complete, responsive HTML/CSS page — not a code snippet. Layout, colors, typography, and interactions rendered by any connected model.</p>
           </div>
           <div class='feature'>
-            <h3>📦 Channel Configs</h3>
-            <p>Telegram, Discord, WhatsApp, Slack - we have templates for all major platforms.</p>
+            <h3>📋 Backend Handoff.md</h3>
+            <p>Produces a production-ready backend spec: data models, API routes, authentication flows, database schema — targeted to your stack (Node, Cloudflare, Supabase, FastAPI, Next.js, Django, Rails).</p>
           </div>
           <div class='feature'>
-            <h3>🚀 Deploy Scripts</h3>
-            <p>One-command deployment to Cloudflare Workers, Railway, Fly.io, and more.</p>
+            <h3>🔀 Model Agnostic</h3>
+            <p>Works with any LLM via OpenRouter — GPT-4o, Claude Sonnet, Gemini, Llama, DeepSeek, and 200+ more. The methodology stays the same; the output quality adapts to the model.</p>
+          </div>
+          <div class='feature'>
+            <h3>📦 Cross-Platform</h3>
+            <p>Install once on your OpenClaw agent. Use it from Telegram, Discord, or WhatsApp — the skill works wherever your agent does.</p>
+          </div>
+          <div class='feature'>
+            <h3>⚡ One Flow</h3>
+            <p>Single prompt → vibe expanded → preview rendered → handoff generated. No toggling between tools, no copy-pasting, no context switching.</p>
           </div>
         </div>
       </div>
@@ -623,13 +666,15 @@
     
     <section class='mascot-section'>
       <div class='container'>
-        <span class='mascot-badge'>🦞 Official OpenClaw Mascot Project</span>
+        <span class='mascot-badge'>🦞 DipDesigns Vibe · Published on ClawHub</span>
+        <p style='color:var(--text-muted);margin-top:16px;font-size:14px;'>Model-agnostic · Stack-agnostic · Cross-platform</p>
       </div>
     </section>
 
     <section class='chat-section' id='chat'>
       <div class='container'>
-        <h2 class='section-title'>Chat with Molty</h2>
+        <h2 class='section-title'>Try the <span class='teal'>Skill</span> Live</h2>
+        <p style='text-align:center;color:var(--text-muted);margin-bottom:32px;font-size:14px;'>Chat with Molty — asks about a UI and it'll walk through the vibe→preview→handoff flow.</p>
         <div class='chat-container'>
           <div class='chat-header'>
             <span class='chat-avatar'>🦞</span>
@@ -660,7 +705,7 @@
     
     <footer>
       <div class='container'>
-        <p>© 2026 ClawdyClaw. Not affiliated with OpenClaw Foundation.</p>
+        <p>© 2026 DipDesigns Vibe · Published on ClawHub · Model-Agnostic UI Generation</p>
       </div>
     </footer>
   </body>

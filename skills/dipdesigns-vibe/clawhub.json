@@ -1,0 +1,19 @@
+{
+  "name": "dipdesigns-vibe",
+  "version": "1.0.0",
+  "description": "From a short vibe to a live HTML preview and complete backend handoff.md — one skill, full pipeline.",
+  "author": "DipDesigns",
+  "tags": ["ui-design", "frontend", "html", "backend", "handoff", "prototyping"],
+  "pricing": {
+    "type": "one-time",
+    "amount": 1000
+  },
+  "capabilities": {
+    "network": false,
+    "filesystem": false
+  },
+  "metadata": {
+    "emoji": "🎨",
+    "category": "developer-tools"
+  }
+}
